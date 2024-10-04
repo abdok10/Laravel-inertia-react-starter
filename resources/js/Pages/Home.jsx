@@ -1,11 +1,17 @@
 import { Head, Link, usePage } from "@inertiajs/react";
+import { useState } from "react";
 import { useRoute } from "../../../vendor/tightenco/ziggy";
 
 export default function Welcome({ posts }) {
   const route = useRoute();
-  const { flash } = usePage().props
+  const { flash } = usePage().props;
+  const [flashMsg, setFlashMsg] = useState(flash.message);
 
-  console.log(usePage())
+  // console.log(usePage())
+
+  setTimeout(() => {
+    setFlashMsg(null);
+  }, 3000);
 
   return (
     <>
@@ -13,9 +19,13 @@ export default function Welcome({ posts }) {
         All Products
       </h1>
 
-      {flash.message && <span className="text-green-500 bg-green-500/20 px-4 py-0.5 rounded">{flash.message}</span>}
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {flashMsg && (
+        <span className="absolute right-2 -top-7 text-red-500 bg-red-500/20 px-4 py-0.5 rounded text-end">
+          {flashMsg}
+        </span>
+      )}
         {posts.data.map((post) => (
           <Link
             // href={`/posts/${post.id}`}
