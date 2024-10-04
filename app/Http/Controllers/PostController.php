@@ -52,6 +52,6 @@ class PostController extends Controller
     {
         $post->delete();
     
-        return redirect('/');
+        return redirect('/')->with('message', 'Post deleted successfully');
     }
 }

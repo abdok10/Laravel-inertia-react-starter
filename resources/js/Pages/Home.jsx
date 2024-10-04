@@ -1,14 +1,19 @@
-import { Head, Link } from "@inertiajs/react";
+import { Head, Link, usePage } from "@inertiajs/react";
 import { useRoute } from "../../../vendor/tightenco/ziggy";
 
 export default function Welcome({ posts }) {
   const route = useRoute();
+  const { flash } = usePage().props
+
+  console.log(usePage())
 
   return (
     <>
       <h1 className="text-3xl font-bold text-blue-500 mb-8 title">
         All Products
       </h1>
+
+      {flash.message && <span className="text-green-500 bg-green-500/20 px-4 py-0.5 rounded">{flash.message}</span>}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {posts.data.map((post) => (
