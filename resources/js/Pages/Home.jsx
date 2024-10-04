@@ -11,7 +11,8 @@ export default function Welcome({ posts }) {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {posts.data.map((post) => (
-          <div
+          <Link
+            href={`/posts/${post.id}`}
             key={post.id}
             className="bg-white border border-gray-200 rounded-lg shadow-lg hover:shadow-xl transition-shadow p-6 flex flex-col justify-between min-h-[250px]"
           >
@@ -26,7 +27,7 @@ export default function Welcome({ posts }) {
                 Posted on: {new Date(post.created_at).toLocaleDateString()}
               </span>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
       <div className="my-12 px-4 text-center">
