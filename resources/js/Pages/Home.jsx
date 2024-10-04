@@ -1,10 +1,11 @@
 import { Head, Link } from "@inertiajs/react";
+import { useRoute } from "../../../vendor/tightenco/ziggy";
 
 export default function Welcome({ posts }) {
-  console.log(posts);
+  const route = useRoute();
+
   return (
     <>
-      <Head title="Welcome" />
       <h1 className="text-3xl font-bold text-blue-500 mb-8 title">
         All Products
       </h1>
@@ -12,7 +13,8 @@ export default function Welcome({ posts }) {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {posts.data.map((post) => (
           <Link
-            href={`/posts/${post.id}`}
+            // href={`/posts/${post.id}`}
+            href={route("posts.show", post)}
             key={post.id}
             className="bg-white border border-gray-200 rounded-lg shadow-lg hover:shadow-xl transition-shadow p-6 flex flex-col justify-between min-h-[250px]"
           >
