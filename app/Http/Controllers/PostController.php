@@ -40,12 +40,17 @@ class PostController extends Controller
 
     public function edit(Post $post)
     {
-        //
+        return inertia('Edit', ["post" => $post]);
     }
 
-    public function update(UpdatePostRequest $request, Post $post)
+    public function update(Request $request, Post $post)
     {
-        //
+        $validPost = $request->validate([
+            'title' => 'required',
+            'content' => 'required',
+        ]);
+        $post->update($validPost);
+        return redirect('/')->with('success', 'Post updated successfully');
     }
 
     public function destroy(Post $post)

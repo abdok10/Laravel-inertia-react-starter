@@ -1,31 +1,39 @@
 import { Head, Link, usePage } from "@inertiajs/react";
 import { useState } from "react";
-import { useRoute } from "../../../vendor/tightenco/ziggy";
+import { useRoute } from "@ziggy";
 
-export default function Welcome({ posts }) {
+export default function Home({ posts }) {
   const route = useRoute();
   const { flash } = usePage().props;
+  const { component } = usePage();
   const [flashMsg, setFlashMsg] = useState(flash.message);
+  const [successMsg, setSuccessMsg] = useState(flash.success);
 
-  // console.log(usePage())
+  console.log(usePage().props.flash);
 
   setTimeout(() => {
     setFlashMsg(null);
+    setSuccessMsg(null);
   }, 3000);
 
   return (
     <>
+      <Head title={component} />
       <h1 className="text-3xl font-bold text-blue-500 mb-8 title">
         All Products
       </h1>
 
-
       <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {flashMsg && (
-        <span className="absolute right-2 -top-7 text-red-500 bg-red-500/20 px-4 py-0.5 rounded text-end">
-          {flashMsg}
-        </span>
-      )}
+        {flashMsg && (
+          <span className="absolute right-2 -top-7 text-red-500 bg-red-500/20 px-4 py-0.5 rounded text-end">
+            {flashMsg}
+          </span>
+        )}
+        {successMsg && (
+          <span className="absolute right-2 -top-7 text-green-500 bg-green-500/20 px-4 py-0.5 rounded text-end">
+            {successMsg}
+          </span>
+        )}
         {posts.data.map((post) => (
           <Link
             // href={`/posts/${post.id}`}

@@ -1,20 +1,20 @@
 import { Head, useForm, usePage } from "@inertiajs/react";
 
-export default function Create() {
-  const { data, setData, post, errors, processing } = useForm({
-    title: "",
-    content: "",
+export default function Edit({ post }) {
+  const { data, setData, put, errors, processing } = useForm({
+    title: post.title,
+    content: post.content,
   });
   const { component } = usePage();
 
   function handleSubmit(e) {
     e.preventDefault();
-    post("/posts");
+    put(route("posts.update", post));
   }
   return (
     <div>
       <Head title={component} />
-      <h1 className="title">Create a new post</h1>
+      <h1 className="title">Update the post N {post.id}</h1>
 
       <form
         onSubmit={handleSubmit}
@@ -49,7 +49,7 @@ export default function Create() {
           {processing ? (
             <span className="block h-5 w-5 mx-auto rounded-full border-b-2 animate-spin" />
           ) : (
-            <span>Create</span>
+            <span>Update</span>
           )}
         </button>
       </form>
