@@ -12,7 +12,7 @@ export default function Show({ post }) {
   };
   return (
     <>
-      <Head title="Product Details" />;
+      <Head title="Product Details" />
       <h1 className="text-3xl font-bold text-blue-500 mb-8 title">
         Product {post[0].id} Details
       </h1>

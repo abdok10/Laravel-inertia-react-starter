@@ -11,20 +11,20 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::latest()->paginate(5);
-        return Inertia('Home', [
+        return Inertia('Posts/Home', [
             'posts' => $posts,
         ]);
     }
 
     public function create()
     {
-        return inertIa('Create');
+        return inertIa('Posts/Create');
     }
 
     public function store(Request $request)
     {
         $post = $request->validate([
-            'title' => 'required',
+            'title' => 'required|min:3',
             'content' => 'required',
         ]);
         Post::create($post);
@@ -35,12 +35,12 @@ class PostController extends Controller
     public function show(Post $post)
     {
         $post = Post::find($post);
-        return inertia('Show', ["post" => $post]);
+        return inertia('Posts/Show', ["post" => $post]);
     }
 
     public function edit(Post $post)
     {
-        return inertia('Edit', ["post" => $post]);
+        return inertia('Posts/Edit', ["post" => $post]);
     }
 
     public function update(Request $request, Post $post)
@@ -50,13 +50,13 @@ class PostController extends Controller
             'content' => 'required',
         ]);
         $post->update($validPost);
-        return redirect('/')->with('success', 'Post updated successfully');
+        return to_route('posts.index')->with('success', 'Post updated successfully');
     }
 
     public function destroy(Post $post)
     {
         $post->delete();
     
-        return redirect('/')->with('message', 'Post deleted successfully');
+        return to_route('posts.index')->with('message', 'Post deleted successfully');
     }
 }

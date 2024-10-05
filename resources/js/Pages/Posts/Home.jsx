@@ -9,12 +9,20 @@ export default function Home({ posts }) {
   const [flashMsg, setFlashMsg] = useState(flash.message);
   const [successMsg, setSuccessMsg] = useState(flash.success);
 
-  console.log(usePage().props.flash);
+  // console.log(usePage());
 
   setTimeout(() => {
     setFlashMsg(null);
     setSuccessMsg(null);
   }, 3000);
+
+  // Format date
+  const getDate = (date) =>
+    new Date(date).toLocaleDateString("en-us", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
 
   return (
     <>
@@ -48,9 +56,7 @@ export default function Home({ posts }) {
               <p className="text-gray-600">{post.content}</p>
             </div>
             <div className="mt-4 text-gray-500 text-sm">
-              <span>
-                Posted on: {new Date(post.created_at).toLocaleDateString()}
-              </span>
+              <span>Posted on: {getDate(post.created_at)}</span>
             </div>
           </Link>
         ))}
